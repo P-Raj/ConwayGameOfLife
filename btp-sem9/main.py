@@ -2,6 +2,7 @@
 from Graph import *
 from GSG import *
 from Conway import *
+from Conwayvariant import *
 
 def main(loadFilename):
 
@@ -12,15 +13,11 @@ def main(loadFilename):
 
 def main():
 
-	conway = Conway(3,3)
+	conway = ConwayVariant(2,2)
 	graph = conway.makeGraph()
 	gsg = GSG(graph)
 	gsg.Calculate()
 	print "Task Complete"
 
-
-
 if __name__ == "__main__" : 
 	main()
-
-

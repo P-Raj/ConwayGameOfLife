@@ -1,7 +1,7 @@
 from Graph import *
 import itertools
 
-class Conway :
+class Conway(object):
 
 	def __init__ (self,row,column):
 
@@ -13,15 +13,20 @@ class Conway :
 		self._counter = 0
 		self._connector = []
 
+	def boardify(self,config):
+
+		tempBoard = [[0]*self.row for i in range(self.column)]
+		for cell in config:
+			tempBoard[cell[0]][cell[1]] = 1
+		return tempBoard
+
 	def configure(self,initConfig) :
 
 		"""sets the intial configuration of the board 
 		   initConfig should be of form [cell0,cell1...] where celli is a tuple of form (rowi,columni)"""
 
-		self.board = [[0]*self.row for i in range(self.column)]
+		self.board = self.boardify(initConfig)
 
-		for cell in initConfig:
-			self.board[cell[0]][cell[1]] = 1
 
 	def linearize(self,aboard):
 
@@ -86,7 +91,7 @@ class Conway :
 			self._addNode(self.board)
 			new_board = self.evolve()
 			self._addNode(new_board)
-			self._addEdge(self.board,new_board)
+			if self.board != [[0]*self.row for i in range(self.column)]:self._addEdge(self.board,new_board)
 
 
 		this.updateVertices(self._map.values())
