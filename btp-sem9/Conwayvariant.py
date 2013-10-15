@@ -23,7 +23,7 @@ class ConwayVariant(Conway):
 
     def max_size_reachable(self, this) :
         """ prints  all the reachable nodes and  their size """
-        for node in this.ReachableVertices():
+        for node in this.reachable_vertices():
             print self._invertmap[node]
             print "####################################"
 
@@ -41,15 +41,14 @@ class ConwayVariant(Conway):
         for cell in live_cells:
             self.configure(cell)
             new_board = self.evolve()
-            self._add_node(self.board)
             self._add_node(new_board)
             for confs in self.find_base_conf(cell):
                 self._add_node(confs)
                 self._add_edge(confs, new_board)
-        this.updateVertices(self._map.values())
+        this.update_vertices(self._map.values())
         self._connector.remove((0, 0))
-        this.updateEdges(self._connector)
-        this.saveGraph("this.graph")
+        this.update_edges(self._connector)
+        this.save_graph("this.graph")
         self.write_config("this.config")
-        self.max_size_reachable(this)
+        #self.max_size_reachable(this)
         return this

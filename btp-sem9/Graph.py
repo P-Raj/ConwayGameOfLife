@@ -21,7 +21,13 @@ class Graph(object):
 
     def init_adjacency_matrix (self):
         """creates the adjacency matrix for the graph """
-        self.adjacency_matrix = [[0]*len(self.vertices)] * self.vertices
+        self.adjacency_matrix = []
+        _row = []
+        for i in range(len(self.vertices)):
+            _row = []
+            for j in range(len(self.vertices)):
+                _row.append(0)
+            self.adjacency_matrix.append(_row)
         for edge in self.edges :
             t_u = edge[0]
             t_v = edge[1]

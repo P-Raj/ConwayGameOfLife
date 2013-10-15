@@ -14,7 +14,7 @@ class GSG (object) :
         self.val_l = {}
         self.val_c = {}
         self.undefined_vertices = []
-        for node in self.graph.V :
+        for node in self.graph.vertices :
             self.val_l[node] = self.undefined
             self.val_c[node] = self.undefined
             self.undefined_vertices.append(node)
@@ -55,7 +55,7 @@ class GSG (object) :
                     self.val_l[node] = self.infinity
                     self.val_c[node] = 0
             self.val_i += 1
-        self.graph.saveGraph("check")
+        self.graph.save_graph("check")
         self.save("this.value")
 
     def save(self, filename):

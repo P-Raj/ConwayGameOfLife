@@ -14,9 +14,20 @@ class Conway(object):
         self._counter = 0
         self._connector = []
 
+    def clean_board(self):
+        """returns a clean board """
+        board = []
+        _row = []
+        for irow in range(self.row):
+            _row = []
+            for icolumn in range(self.column):
+                _row.append(0)
+            board.append(_row)
+        return board
+
     def boardify(self, config):
         """initialize the board according to the config """
-        temp_board = [[0]*self.row] * self.column
+        temp_board = self.clean_board()
         for cell in config:
             temp_board[cell[0]][cell[1]] = 1
         return temp_board
@@ -57,7 +68,7 @@ class Conway(object):
 
     def evolve(self) :
         """the board evolves using conway's rules"""
-        newboard = [[0]*self.row] * self.column
+        newboard = self.clean_board()
         for irow in range(self.row):
             for icolumn in range(self.column) :
                 if self._should_be_alive(irow, icolumn):
@@ -74,7 +85,7 @@ class Conway(object):
             for icolumn in range(self.column):
                 options.append((irow, icolumn))
         live_cells = []
-        empty_board = [[0] * self.row] * self.column
+        empty_board = self.clean_board()
         for length in range(self.row * self.column+1):
             live_cells += itertools.combinations(options, length)
         for cell in live_cells:
@@ -124,7 +135,7 @@ class Conway(object):
 
     def _make_board_readable(self):
         """ beautifies the board """
-        return "\n".join([" ".join(irow) for irow in self.board])
+        return "\n".join([" ".join(str(irow)) for irow in self.board])
 
     def print_board(self):
         """ prints the board """

@@ -3,6 +3,7 @@
 from Graph import Graph
 from GSG import GSG
 from Conwayvariant import ConwayVariant
+from Conway import Conway
 
 def main(load_filename):
     graph = Graph()
@@ -12,8 +13,10 @@ def main(load_filename):
     print "Done"
 
 def main():
-    conway = ConwayVariant(3, 3)
-    return conway
+    conway = ConwayVariant(3,3)
+    gsg = GSG(conway.make_graph())
+    gsg.calculate()
+    #return conway
 
 if __name__ == "__main__" :
     print main()
