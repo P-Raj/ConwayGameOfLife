@@ -1,73 +1,67 @@
-class GSG :
+""" Modules contains class for GSG """
 
-	def __init__ (self,graph) :
+class GSG (object) :
+    """ Class defines function and variables
+    for calculating GSG number of a given
+    graph """
 
-		self.Graph = graph
-		self.Undefined = None
-		self.Inifinity = float("inf")
-		self.i = 0
-		self.m = 0
-		self.l = {}
-		self.c = {}
-		self.UndefinedVertices = []
+    def __init__ (self, graph) :
+        self.graph = graph
+        self.undefined = None
+        self.infinity = float("inf")
+        self.val_i = 0
+        self.val_m = 0
+        self.val_l = {}
+        self.val_c = {}
+        self.undefined_vertices = []
+        for node in self.graph.V :
+            self.val_l[node] = self.undefined
+            self.val_c[node] = self.undefined
+            self.undefined_vertices.append(node)
 
-		for node in self.Graph.V :
+    def condition_satisfied (self, node, i) :
+        """ returns whether the GSG condition has been satisfied or not """
+        valid_options = []
+        for nnode in self.graph.next_nodes(node):
+            if self.val_l[nnode] == i :
+                return False
+            if (self.val_l[nnode] == self.undefined
+                or self.val_l[nnode] == self.infinity) :
+                valid_options.append(nnode)
+        for options in valid_options:
+            if i not in self.graph.next_nodes(options) :
+                return False
+        return True
 
-			self.l[node] = self.Undefined
-			self.c[node] = self.Undefined
-			self.UndefinedVertices.append(node)
+    def calculate(self) :
+        """ calculates the graph values """
+        #self.graph
+        self.val_i = 0
+        while (len(self.undefined_vertices) > 0) :
+            cond = True
+            while cond:
+                cond = False
+                for node in self.undefined_vertices:
+                    if self.condition_satisfied(node, self.val_i) :
+                        cond = True
+                        self.undefined_vertices.remove(node)
+                        self.val_l[node] = self.val_i
+                        self.val_c[node] = self.val_m
+                        self.val_m += 1
+            for node in self.undefined_vertices:
+                if self.val_i not in [self.val_l[n] for n in
+                                    self.graph.next_nodes(node)]:
+                    self.undefined_vertices.remove(node)
+                    self.val_l[node] = self.infinity
+                    self.val_c[node] = 0
+            self.val_i += 1
+        self.graph.saveGraph("check")
+        self.save("this.value")
 
-
-	def ConditionSatisfied (self,node,i) :
-
-		validOptions = []
-
-		for nnode in self.Graph.nextNodes(node):
-			if self.l[nnode] == i:return False
-			if self.l[nnode] == self.Undefined or self.l[nnode] == self.Inifinity: validOptions.append(nnode)
-		for options in validOptions:
-
-			if i not in self.Graph.nextNodes(options): return False
-
-		return True		
-
-	def Calculate(self) :
-
-		self.i = 0
-
-		
-		while (len(self.UndefinedVertices) > 0) :
-
-			cond = True
-
-			while cond:
-
-				cond = False
-			
-				for node in self.UndefinedVertices:
-			
-					if self.ConditionSatisfied(node,self.i) :
-			
-						cond = True
-						self.UndefinedVertices.remove(node)
-						self.l[node] = self.i
-						self.c[node] = self.m
-						self.m += 1
-
-			for node in self.UndefinedVertices:
-			
-				if self.i not in self.Graph.nextNodes(node): 
-			
-					self.UndefinedVertices.remove(node)
-					self.l[node] = self.Inifinity
-					self.c[node] = 0
-
-			self.i += 1
-		self.save("this.value")
-	
-	def save(self,filename):
-
-		fp = open(filename,'w')
-		for node in self.l:
-			fp.write(str(node) + " " + str(self.l[node]) + " " + str(self.c[node]) + "\n")
-		fp.close()
+    def save(self, filename):
+        """ saves the file with 'filename' """
+        fptr = open(filename, 'w')
+        for node in self.val_l:
+            fptr.write(str(node) + " " + str(self.val_l[node]) +
+                    " " + str(self.val_c[node]) + "\n")
+        fptr.close()

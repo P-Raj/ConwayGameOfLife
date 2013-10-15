@@ -1,23 +1,19 @@
-#main file
-from Graph import *
-from GSG import *
-from Conway import *
-from Conwayvariant import *
+"""         main file        """
 
-def main(loadFilename):
+from Graph import Graph
+from GSG import GSG
+from Conwayvariant import ConwayVariant
 
-	graph = Graph()
-	graph.loadGraph(loadFilename)
-	gsg = GSG(graph)
-	gsg.Calculate()
+def main(load_filename):
+    graph = Graph()
+    graph.load_graph(load_filename)
+    gsg = GSG(graph)
+    gsg.calculate()
+    print "Done"
 
 def main():
+    conway = ConwayVariant(3, 3)
+    return conway
 
-	conway = ConwayVariant(2,2)
-	graph = conway.makeGraph()
-	gsg = GSG(graph)
-	gsg.Calculate()
-	print "Task Complete"
-
-if __name__ == "__main__" : 
-	main()
+if __name__ == "__main__" :
+    print main()
