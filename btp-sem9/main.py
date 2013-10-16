@@ -4,6 +4,7 @@ from Graph import Graph
 from GSG import GSG
 from Conwayvariant import ConwayVariant
 import path
+import player
 
 def main(load_filename):
     graph = Graph()
@@ -31,5 +32,10 @@ def main():
     conway.print_sequence(seq[0],seq[1])
     #return conway
 
+def game():
+    
+    init_config = [[0,0,0],[1,1,1],[0,0,0]]
+    player.player(init_config)
+    
 if __name__ == "__main__" :
-    print main()
+    print game()

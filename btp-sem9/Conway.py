@@ -42,6 +42,10 @@ class Conway(object):
         """ returns the state index of the config """
         return self._map[tuple(self.linearize(config))]
 
+    def get_states(self) :
+        """ returns the config corresponding to this state"""
+        return self._invertmap
+
     @classmethod
     def linearize(cls, aboard):
         """linearizes the board : aboard """
