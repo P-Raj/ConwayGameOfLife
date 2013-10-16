@@ -57,6 +57,7 @@ class GSG (object) :
             self.val_i += 1
         self.graph.save_graph("check")
         self.save("this.value")
+        return self.graph.to_dictionary(), self.val_l, self.val_c
 
     def save(self, filename):
         """ saves the file with 'filename' """

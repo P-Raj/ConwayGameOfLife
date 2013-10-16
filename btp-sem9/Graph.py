@@ -80,3 +80,12 @@ class Graph(object):
         fptr = open(filename,'w')
         lines = [" ".join([str(j) for j in i]) for i in self.adjacency_matrix]
         fptr.write("\n".join(lines))
+    
+    def to_dictionary(self):
+        """coverts the object into dictionary format"""
+        _graph = {}
+        for node in self.vertices:
+            _graph[node] = []
+        for edge in self.edges:
+            _graph[edge[0]].append(edge[1])
+        return _graph

@@ -38,6 +38,10 @@ class Conway(object):
              where celli is a tuple of form (rowi,columni)"""
         self.board = self.boardify(init_config)
 
+    def get_state_index(self, config) :
+        """ returns the state index of the config """
+        return self._map[tuple(self.linearize(config))]
+
     @classmethod
     def linearize(cls, aboard):
         """linearizes the board : aboard """
@@ -45,7 +49,19 @@ class Conway(object):
         for boards in aboard:
             rboard += boards
         return rboard
-
+        
+    def  de_linearize(self, aboard):
+        """ delinearizes the board: aboard """
+        temp_i = 0
+        array = []
+        while True:
+            if temp_i * self.column >= len(aboard):
+                break
+            start_index = temp_i * self.column
+            array.append(aboard[start_index : start_index + self.column])
+            temp_i += 1
+        return array[0]
+                
     def _should_be_alive(self, row, column):
         """ returns whether the cell (row,column) 
         should be alive in the next iteration or not """
@@ -132,6 +148,34 @@ class Conway(object):
         fptr.write("\n".join([str(k) for k in self._connector]))
         fptr.close()
 
+    def print_sequence(self, sequence , error):
+        """prints the sequence of states"""
+        index = 0
+        for seq in sequence:
+            _board = self.de_linearize(self._invertmap[seq])
+            print seq , " : " 
+            for row in _board:
+                print row
+            print "___________________________________________________________________________"
+
+
+            if index%2 == 0:
+                wrong_option = [self.de_linearize(self._invertmap[form]) for form in error]
+                wrong_option_index = 0
+                if len(wrong_option) > 0 :
+                    print "Loosing options from this position :"
+                    print
+                for option in wrong_option:
+                    print wrong_option_index , " " , option
+                    print "----------------------------------------------------------------------------" 
+                    wrong_option_index += 1
+
+            print 
+            print 
+            print 
+            index += 1
+
+        
 
     def _make_board_readable(self):
         """ beautifies the board """
