@@ -49,7 +49,7 @@ class Conway(object):
         for boards in aboard:
             rboard += boards
         return rboard
-        
+
     def  de_linearize(self, aboard):
         """ delinearizes the board: aboard """
         temp_i = 0
@@ -61,9 +61,9 @@ class Conway(object):
             array.append(aboard[start_index : start_index + self.column])
             temp_i += 1
         return array[0]
-                
+
     def _should_be_alive(self, row, column):
-        """ returns whether the cell (row,column) 
+        """ returns whether the cell (row,column)
         should be alive in the next iteration or not """
         _alive_neighbors = 0
         for irow in range(max(0, row-1),
@@ -136,7 +136,7 @@ class Conway(object):
 
     def write_config(self, filename):
         """ function to write the config file """
-        fptr = open(filename,'w')        
+        fptr = open(filename,'w')
         for i in self._invertmap:
             fptr.write(str(i))
             for row in self._invertmap[i]:
@@ -153,29 +153,32 @@ class Conway(object):
         index = 0
         for seq in sequence:
             _board = self.de_linearize(self._invertmap[seq])
-            print seq , " : " 
+            print seq , " : "
             for row in _board:
                 print row
-            print "___________________________________________________________________________"
+            print """__________________________________
+                    _________________________________________"""
 
 
-            if index%2 == 0:
-                wrong_option = [self.de_linearize(self._invertmap[form]) for form in error]
+            if index % 2 == 0:
+                wrong_option = [self.de_linearize(self._invertmap[form])
+                                for form in error]
                 wrong_option_index = 0
                 if len(wrong_option) > 0 :
                     print "Loosing options from this position :"
                     print
                 for option in wrong_option:
                     print wrong_option_index , " " , option
-                    print "----------------------------------------------------------------------------" 
+                    print """----------------------------------
+                            ------------------------------------------"""
                     wrong_option_index += 1
 
-            print 
-            print 
-            print 
+            print
+            print
+            print
             index += 1
 
-        
+
 
     def _make_board_readable(self):
         """ beautifies the board """

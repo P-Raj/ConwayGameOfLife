@@ -17,10 +17,10 @@ def main():
     conway = ConwayVariant(3,3)
     gsg = GSG(conway.make_graph())
     a, b, c = gsg.calculate()
-    
-    #init_state can either be the actual config or the index of 
+
+    #init_state can either be the actual config or the index of
     #the state in the graph calculated above
-    init_state = 24
+    #init_state = 24
     init_state = [[0,1,1],[0,1,0],[1,1,1]]
 
     if type(init_state) == list:

@@ -80,7 +80,7 @@ class Graph(object):
         fptr = open(filename,'w')
         lines = [" ".join([str(j) for j in i]) for i in self.adjacency_matrix]
         fptr.write("\n".join(lines))
-    
+
     def to_dictionary(self):
         """coverts the object into dictionary format"""
         _graph = {}
